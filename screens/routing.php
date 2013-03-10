@@ -33,31 +33,28 @@
                     var done_button;
 
                     function update_coords(){
-                        alert("clicked on update");
+                        $.ajax({
+                            url: "process_path.php",
+                            type: "POST",
+                            data: { coordinates: JSON.stringify(coordinates), destination: destinationText, source: sourceText},
+                            cache: false,
+                            success: function (response) {
+                                alert(response);
+                            }
+                        });
                     }
                     function initialise() {
                         var latlng = new google.maps.LatLng(-25.363882, 131.044922);
                         done_button = document.getElementById("done_adding");
                         destinationText =  "<?php echo $_POST["dest"]; ?>";
                         sourceText = "<?php echo $_POST["source"]; ?>";
-                        
+
                         done_button.onclick = function(){
-                            alert("done adding");
                             done_button.text = "Update";
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
-
-                            //                            $.ajax({
-                            //                                url: "process_path.php",
-                            //                                type: "POST",
-                            //                                data: { coordinates: JSON.stringify(coordinates), destination: destinationText, source: sourceText},
-                            //                                cache: false,
-                            //                                success: function (response) {
-                            //                                    alert(response);
-                            //                                }
-                            //                            });
                         }
-                        
+
                         var myOptions = {
                             zoom: 4,
                             center: latlng,
