@@ -48,7 +48,9 @@ var Input = $('input[name=dest]');
                 <label for="dest">
                 </label>
                 <input name="dest"  placeholder="" value="Enter the destination"
-                type="text">
+                type="text" onclick="this.value=''" >
+				<input name="source"  placeholder="" value="Enter the start locaion"
+                type="text" onfocus="this.value=''">
             </fieldset>
         </div>
 		
@@ -61,5 +63,6 @@ var Input = $('input[name=dest]');
         </a>
     </div>
 </div>
+
 </body>
 </html>
