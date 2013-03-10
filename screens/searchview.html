@@ -48,35 +48,46 @@
 				document.getElementById('current').innerHTML="Geocoding functionality not available";
 			}			
 		}
-		function displaypath()
+		function displaypath(Array pathpoints)
 		{
-			pathpoints = new Array();
-			latitude= 33.777364;
-			longitude= -84.408574;
-			//start - repeat for all elements of path array			
-			var pos=new google.maps.LatLng(latitude,longitude);
-			//center the map only for the first hop			
-			map.setCenter(pos);	
-			//put marker only for the first and last hops		
+		//	pathPoints = new Array();
+		//	latitude= 33.777364;
+		//	longitude= -84.408574;
+
+			var coords= pathpoints.pop();				
+			var pos=new google.maps.LatLng(coords.latitude,coords.longitude);
 			var marker = new google.maps.Marker({
 			    position: pos,
 			    map: map,
-			    title:"Position"
+			    title:"Destination"
 			});
 			google.maps.event.addListener(marker, 'click', function() {
 			  infowindow.open(map,marker);
 			});
-			pathpoints.push(pos);				
-			//end
+			pathPoints.push(pos);				
 			
+			while(pathPoints.length > 0)
+			{				
+				coords= pathpoints.pop();				
+				pos=new google.maps.LatLng(coords.latitude,coords.longitude);
+				pathPoints.push(pos);								
+			}
+			var marker = new google.maps.Marker({
+			    position: pos,
+			    map: map,
+			    title:"Start point"
+			});
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			});
+			map.setCenter(pos);
 
 			var pathWay=new google.maps.Polyline({
-			  path:pathpoints,
+			  path:pathPoints,
 			  strokeColor:"#0000FF",
 			  strokeOpacity:0.8,
 			  strokeWeight:2
 			  });
-
 			pathWay.setMap(map);	
 		}
 
