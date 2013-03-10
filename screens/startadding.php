@@ -44,6 +44,7 @@ var Input = $('input[name=dest]');
 <div data-role="page" id="page1">
     <div data-role="content">
         <div data-role="fieldcontain">
+		 <form action="routing.php" method="POST">
             <fieldset data-role="controlgroup">
                 <label for="dest">
                 </label>
@@ -53,10 +54,11 @@ var Input = $('input[name=dest]');
                 type="text" onfocus="this.value=''">
             </fieldset>
         </div>
-		
-        <a  id="ab" data-role="button" rel="external" href="routing.php">
-            Start
+            <input type="submit" value="Start">
         </a>
+		</form>
+		
+       
 		
         <a data-role="button" rel="external" href="homepage.html">
             Cancel
