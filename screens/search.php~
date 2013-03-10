@@ -28,24 +28,20 @@ $destination = $_POST["searchloc"];
 @mysql_connect("$db_host","$db_username","$db_pass") or die ("Could not connect to MySQL");
 @mysql_select_db("$db_name") or die ("No Database of that name");
 
-
-/*$result = mysql_query("SELECT Latitude, Longitude 
+$result = mysql_query("SELECT Latitude, Longitude 
 FROM  `coordinates` 
 WHERE cID =( SELECT pID
 FROM  `paths` 
-WHERE Destination =  '".$destination."' ) ") or die(mysql_error());*/
-
-$result = mysql_query("SELECT source 
-FROM  `paths` 
-WHERE destination =  '".$destination."' ) ") or die(mysql_error());
+WHERE Destination =  '".$destination."' ) ") or die(mysql_error());
   
   while($row = mysql_fetch_array($result))
    {  
-    $source = $row['source'];
+    $latitude = $row['Latitude'];
+	  $longitude = $row['Longitude'];
      echo '  <li data-role="list-divider" role="heading">';
             '</li>';
 			
-	   echo '<li data-theme="c">  <a href="#" data-transition="slide">' . $source;
+	   echo '<li data-theme="c">  <a href="#" data-transition="slide">' . $latitude;
 	   echo '</a></li>';
 	  
 	  //echo  $latitude; echo  $longitude; echo '</br>';
