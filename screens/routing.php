@@ -20,7 +20,13 @@
 <a href="finalroute.html" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;" >Done</a>
 <a href="startadding.html" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
  </div>
+
 </div>  
+ <?php
+$destination1 = $_POST["dest"];
+echo $destination1;
+?> 
 </div>
+
 </body>
 </html>
