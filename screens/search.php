@@ -5,15 +5,22 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
     <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+	<script>
+	function displaymaps(var1)
+{
+var urlString = "searchview.php?myvar="+var1;
+window.location = urlString;
+
+}
+</script>
 </head>
 <body> 
 <div data-role="page" id="page1">
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="d" data-inset="true">
 		           	
-	<?php
+<?php
 set_time_limit(300);
-
 $destination = $_POST["searchloc"];
 //$startloc= (string) $_POST["startloc"];
 
@@ -28,30 +35,29 @@ $destination = $_POST["searchloc"];
 @mysql_connect("$db_host","$db_username","$db_pass") or die ("Could not connect to MySQL");
 @mysql_select_db("$db_name") or die ("No Database of that name");
 
-
-/*$result = mysql_query("SELECT Latitude, Longitude 
-FROM  `coordinates` 
-WHERE cID =( SELECT pID
+$result = mysql_query("SELECT source,id 
 FROM  `paths` 
-WHERE Destination =  '".$destination."' ) ") or die(mysql_error());*/
-
-$result = mysql_query("SELECT source 
-FROM  `paths` 
-WHERE destination =  '".$destination."' ) ") or die(mysql_error());
+WHERE destination =  '".$destination."'  ") or die(mysql_error());
   
   while($row = mysql_fetch_array($result))
    {  
     $source = $row['source'];
-     echo '  <li data-role="list-divider" role="heading">';
-            '</li>';
-			
-	   echo '<li data-theme="c">  <a href="#" data-transition="slide">' . $source;
-	   echo '</a></li>';
+	$ids = $row['id'];
+    
+	   echo '<input
+    type="button"
+    name="ids"
+    id="ids"
+    data-icon="plus" 
+    data-iconpos="right" 
+    data-theme="c" 
+	onclick="displaymaps('.$ids.')"
+    value='.$ids.' /> ';
+	 //  echo '</li>';
 	  
 	  //echo  $latitude; echo  $longitude; echo '</br>';
 
    }
-  
 
 ?>
 </ul>
