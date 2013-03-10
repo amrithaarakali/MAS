@@ -1,59 +1,107 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-    <head>
-    <title>jQuery Mobile Tutorial on Codeforest.net</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
-    <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+<head>
+	<title>jQuery Mobile Tutorial on Codeforest.net</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
 	<script>
+		var likeval=0;
+		var unlikeval=0;
+
+			$(document).ready(function(){
+		    $('#yea').click(function() {
+			likeval++;
+		    alert(likeval);
+		});
+		 $('#nay').click(function() {
+			unlikeval++;
+		    alert(unlikeval);
+		});
+				 
+
+		});
+	</script>
+	<script>
+		function initialize_map()
+		{
+		    var myOptions = {
+			      zoom: 15,
+			      mapTypeControl: true,
+			      mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+			      navigationControl: true,
+			      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+			      mapTypeId: google.maps.MapTypeId.HYBRID      
+			    }	
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		}
+		function initialize()
+		{
+				if(!geo_position_js.init())
+			{
+				document.getElementById('current').innerHTML="Geocoding functionality not available";
+			}
 	
+			setInterval(retrieve,1000);	
+		}
+		function displaypath()
+		{
+			pathpoints = new Array();
+			//repeat for all elements of path array			
+			var pos=new google.maps.LatLng(latitude,longitude);
+			var marker = new google.maps.Marker({
+			    position: pos,
+			    map: map,
+			    title:"Position"
+			});
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			});
+			pathpoints.push(pos);				
+			//end
+			
 
-var likeval=0;
-var unlikeval=0;
+			var pathWay=new google.maps.Polyline({
+			  path:pathpoints,
+			  strokeColor:"#0000FF",
+			  strokeOpacity:0.8,
+			  strokeWeight:2
+			  });
 
-	$(document).ready(function(){
-    $('#yea').click(function() {
-	likeval++;
-    alert(likeval);
-});
- $('#nay').click(function() {
-	unlikeval++;
-    alert(unlikeval);
-});
-		 
+			pathWay.setMap(map);	
+		}
 
-});
+	</script>
 
-</script>
-	
 </head>
-<body> 
-<!-- Home -->
-<div data-role="page" id="page1">
-    <div data-theme="c" data-role="header">
-<input
-    type="button"
-    name="yea"
-    id="yea"
-    data-icon="plus" 
-    data-iconpos="right" 
-    data-theme="c" 
-    value="Yea!" />
-        <h3>
-            Showing route
-        </h3>
+<body onload="initialize_map();initialize()"> 
+	<!-- Home -->
+	<div data-role="page" id="page1">
+	    <div data-theme="c" data-role="header">
+		<input
+		    type="button"
+		    name="yea"
+		    id="yea"
+		    data-icon="plus" 
+		    data-iconpos="right" 
+		    data-theme="c" 
+		    value="Yea!" />
+		<h3>
+		    Showing route
+		</h3>
 		
-<input
-    type="button"
-    name="nay"
-    id="nay"
-    data-icon="minus" 
-    data-iconpos="left" 
-    data-theme="c" 
-    value="Nay!" />
-    </div>
-    <div data-role="content">
-    </div>
-</div>
+		<input
+		    type="button"
+		    name="nay"
+		    id="nay"
+		    data-icon="minus" 
+		    data-iconpos="left" 
+		    data-theme="c" 
+		    value="Nay!" />
+	    </div>
+	  <div data-role="content">
+		
+	  </div>
+	</div>
 </body>
 </html>
