@@ -24,10 +24,6 @@ window.location = urlString;
 <?php
 set_time_limit(300);
 $destination = $_POST["searchloc"];
-//$startloc= (string) $_POST["startloc"];
-
-
-
 	$db_host = "localhost";
 	$db_username = "root";
 	$db_pass = "root";
@@ -37,7 +33,7 @@ $destination = $_POST["searchloc"];
 @mysql_connect("$db_host","$db_username","$db_pass") or die ("Could not connect to MySQL");
 @mysql_select_db("$db_name") or die ("No Database of that name");
 
-$result = mysql_query("SELECT source,id 
+$result = mysql_query("SELECT source,id,yea,nay
 FROM  `paths` 
 WHERE destination =  '".$destination."'  ") or die(mysql_error());
   
@@ -45,6 +41,10 @@ WHERE destination =  '".$destination."'  ") or die(mysql_error());
    {  
     $source = $row['source'];
 	$ids = $row['id'];
+        $yea = $row['yea'];
+        $nay = $row['nay'];
+        $format = " %s has %s Yeas! and %s Nays!";
+        $label_string = sprintf($format, $source, $yea, $nay);
     
 	   echo '<input
     type="button"
@@ -54,7 +54,7 @@ WHERE destination =  '".$destination."'  ") or die(mysql_error());
     data-iconpos="right" 
     data-theme="c" 
 	onclick="displaymaps('.$ids.')"
-    value='.$ids.' /> ';
+    value="'.$label_string.'" /> ';
 	 //  echo '</li>';
 	  
 	  //echo  $latitude; echo  $longitude; echo '</br>';
