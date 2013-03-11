@@ -22,6 +22,7 @@
                     <a id ="done_adding" href ="#" data-role="button" data-inline="true" style="margin-left:5px; width:100px;" >Done</a>
                     <a href="startadding.html" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
                 </div>
+                <div id="map_canvas" style="width:500px; height:500px"></div>
 
                 <script type="text/javascript">
                     var map;
@@ -31,6 +32,15 @@
                     var destinationText =  "";
                     var sourceText = "";
                     var done_button;
+                    var myOptions = {
+                        zoom: 15,
+                        mapTypeControl: true,
+                        mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+                        navigationControl: true,
+                        navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+                        mapTypeId: google.maps.MapTypeId.HYBRID
+                    }
+                    var realTimeCoords = new Array();
 
                     function update_coords(){
                         $.ajax({
@@ -44,7 +54,7 @@
                         });
                     }
                     function initialise() {
-                        var latlng = new google.maps.LatLng(-25.363882, 131.044922);
+                        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
                         done_button = document.getElementById("done_adding");
                         destinationText =  "<?php echo $_POST["dest"]; ?>";
                         sourceText = "<?php echo $_POST["source"]; ?>";
@@ -53,13 +63,6 @@
                             done_button.text = "Update";
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
-                        }
-
-                        var myOptions = {
-                            zoom: 4,
-                            center: latlng,
-                            mapTypeId: google.maps.MapTypeId.TERRAIN,
-                            disableDefaultUI: true
                         }
                         prepareGeolocation();
                         doGeolocation();
@@ -75,6 +78,14 @@
                         } else {
                             positionError(-1);
                         }
+                        var flightPath=new google.maps.Polyline({
+                            path:realTimeCoords,
+                            strokeColor:"#0000FF",
+                            strokeOpacity:0.8,
+                            strokeWeight:2
+                        });
+
+                        flightPath.setMap(map);
                     }
                     function positionError(err) {
                         var msg;
@@ -99,18 +110,36 @@
                     function positionSuccess(position) {
                         var coords = position.coords || position.coordinate || position;
                         var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
-                        if(coordinates.length != 0){
-                            var coordinate = coordinates[coordinates.length - 1];
-                            if((coordinate[0] != coords.latitude) || (coordinate[1] != coords.longtitude)){
-                                coordinates.push([coords.latitude, coords.longitude]);
-                            }
-                        }
-                        else
-                            coordinates.push([coords.latitude, coords.longitude]);
+                        //if(coordinates.length != 0){
+                        //var coordinate = coordinates[coordinates.length - 1];
+                        //  if((coordinate[0] != coords.latitude) || (coordinate[1] != coords.longtitude)){
+                        coordinates.push([coords.latitude, coords.longitude]);
+                        map.setCenter(latLng);
+
+                        realTimeCoords.push(latLng);
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<strong>yes</strong>"
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: latLng,
+                            map: map,
+                            title:"You are here"
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                        });
+                        //}
+                        //}
+                        //                        else
+                        //                            coordinates.push([coords.latitude, coords.longitude]);
 
                         document.getElementById('info').innerHTML = 'Current position is <b>' +
                             coords.latitude + ', ' + coords.longitude + '</b>...' + myInterval;
                     }
+
                     function contains(array, item) {
                         for (var i = 0, I = array.length; i < I; ++i) {
                             if (array[i] == item) return true;
