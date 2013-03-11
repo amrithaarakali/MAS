@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-<<<<<<< HEAD
         <title>Routing to destination</title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
         <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
@@ -22,7 +21,6 @@
 
 		});
 	</script>
-
     </head>
     <body onload ="initialise()">
         <!-- Home -->
@@ -74,7 +72,7 @@
                         sourceText = "<?php echo $_POST["source"]; ?>";
 
                         done_button.onclick = function(){
-                            done_button.text = "Update";
+                            $('#mybutton span span').html("Update");
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
                         }
