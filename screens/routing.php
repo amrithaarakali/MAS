@@ -72,7 +72,7 @@
                         sourceText = "<?php echo $_POST["source"]; ?>";
 
                         done_button.onclick = function(){
-                            $('#mybutton span span').html("Update");
+                            $('#done_adding span span').html("Update");
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
                         }
