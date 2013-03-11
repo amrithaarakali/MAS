@@ -8,7 +8,7 @@
 	<script>
 	function displaymaps(var1)
 {
-var urlString = "searchview.php?myvar="+var1;
+var urlString = "searchview.php?id="+var1;
 window.location = urlString;
 
 }
@@ -28,8 +28,8 @@ $destination = $_POST["searchloc"];
 
 	$db_host = "localhost";
 	$db_username = "root";
-	$db_pass = "manchester";
-	$db_name = "Path-Mapper";
+	$db_pass = "root";
+	$db_name = "path_mapper";
 
 
 @mysql_connect("$db_host","$db_username","$db_pass") or die ("Could not connect to MySQL");
