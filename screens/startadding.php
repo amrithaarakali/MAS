@@ -6,38 +6,7 @@
     <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
 
-	<script>
-	
-	
-	$(document).ready(function(){
-   	$("#aa").mouseenter(function () {
- 
-         //$("#myDiv").fadeIn("slow");
-         $("#aa").css("color","white");
 
-});
-var likeval=0;
-
-	$(document).ready(function(){
-   	$("#ab").onclick(function () {
- 
-         //$("#myDiv").fadeIn("slow");
-         likeval++;
-		 
-
-});
-var Input = $('input[name=dest]');
-    var default_value = Input.val();
-
-    Input.focus(function() {
-        if(Input.val() == default_value) Input.val("");
-    }).blur(function(){
-        if(Input.val().length == 0) Input.val(default_value);
-    });
-	
-	
-});
-</script>
 </head>
 <body> 
 <!-- Home -->

@@ -8,7 +8,9 @@
 	<script>
 	function displaymaps(var1)
 {
+
 var urlString = "searchview.php?id="+var1;
+
 window.location = urlString;
 
 }

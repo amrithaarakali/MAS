@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+
 <?php
-
-
 $db_host = "localhost";
 	$db_username = "root";
 	$db_pass = "root";
@@ -33,10 +32,13 @@ $encoded_result= json_encode(json_encode($coordinates));
    }
 */
 ?>
+
+
 	<title>Pathway display</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
 	<script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBDr01oMpABaGg10WW96W1_5CaYLIlLXVg&sensor=false"></script>
 
 	<script>
@@ -119,6 +121,10 @@ $encoded_result= json_encode(json_encode($coordinates));
 </head>
 
 <body onload="initialize_map()"> 
+	<script src="geo.js" type="text/javascript" charset="utf-8"></script>
+	<script src="handles.js" type="text/javascript"></script>
+	<script src="geo_position_js_simulator.js" type="text/javascript" charset="utf-8"></script>
+
 	<!-- Home -->
 	<div data-role="page" id="page1">
 	    <div data-theme="c" data-role="header">
@@ -141,6 +147,7 @@ $encoded_result= json_encode(json_encode($coordinates));
 		    data-icon="minus" 
 		    data-iconpos="left" 
 		    data-theme="c" 
+			disabled=""
 		    value="Nay!" />
 	    </div>
 	 
@@ -149,5 +156,11 @@ $encoded_result= json_encode(json_encode($coordinates));
  </div>
 </div>
 
+		<?php
+		session_start();
+		$x = $_GET["myvar"]; 
+		$_SESSION['varname'] = $x;
+		echo $x;
+		?>
 </body>
 </html>
