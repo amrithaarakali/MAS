@@ -8,19 +8,19 @@
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script type="text/javascript" src="geometa.js"></script>
 
-		<script>
-		var likeval=0;
-		var unlikeval=0;
+        <script>
+            var likeval=0;
+            var unlikeval=0;
 
-			$(document).ready(function(){
-		    $('#mybutton').click(function() {
+            $(document).ready(function(){
+                $('#mybutton').click(function() {
 			
-			$('#mybutton span span').html("Update");
-		});
+                    $('#mybutton span span').html("Update");
+                });
 	 
 
-		});
-	</script>
+            });
+        </script>
     </head>
     <body onload ="initialise()">
         <!-- Home -->
@@ -32,7 +32,7 @@
                 <div id="info">Detecting your location...</div>
                 <div data-role="controlgroup" data-type="horizontal">
                     <a id ="done_adding" href ="#" data-role="button" data-inline="true" style="margin-left:5px; width:100px;" >Done</a>
-                    <a href="startadding.html" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
+                    <a href="startadding.php" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
                 </div>
                 <div id="map_canvas" style="width:500px; height:500px"></div>
 
@@ -75,6 +75,16 @@
                             $('#done_adding span span').html("Update");
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
+                            var marker = new google.maps.Marker({
+                            position: realTimeCoords[realTimeCoords.length-1],
+                            map: map,
+                            title:"You are here"
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                        });
+
                         }
                         prepareGeolocation();
                         doGeolocation();
@@ -133,23 +143,22 @@
                         var infowindow = new google.maps.InfoWindow({
                             content: "<strong>yes</strong>"
                         });
+                        if(coordinates.length == 1){
+                            var marker = new google.maps.Marker({
+                                position: latLng,
+                                map: map,
+                                title:"You are here"
+                            });
 
-                        var marker = new google.maps.Marker({
-                            position: latLng,
-                            map: map,
-                            title:"You are here"
-                        });
-
-                        google.maps.event.addListener(marker, 'click', function() {
-                            infowindow.open(map,marker);
-                        });
+                            google.maps.event.addListener(marker, 'click', function() {
+                                infowindow.open(map,marker);
+                            });
+                        }
                         //}
                         //}
                         //                        else
                         //                            coordinates.push([coords.latitude, coords.longitude]);
 
-                        document.getElementById('info').innerHTML = 'Current position is <b>' +
-                            coords.latitude + ', ' + coords.longitude + '</b>...' + myInterval;
                     }
 
                     function contains(array, item) {

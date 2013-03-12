@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-    <title>jQuery Mobile Tutorial on Codeforest.net</title>
+    <title>Pathway Mapper</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
     <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
@@ -43,14 +43,14 @@ WHERE destination =  '".$destination."'  ") or die(mysql_error());
 	$ids = $row['id'];
         $yea = $row['yea'];
         $nay = $row['nay'];
-        $format = " %s has %s Yeas! and %s Nays!";
+        $format = "From: %s Yeas!: %s Nays!: %s";
         $label_string = sprintf($format, $source, $yea, $nay);
     
 	   echo '<input
     type="button"
     name="ids"
     id="ids"
-    data-icon="plus" 
+    data-icon="arrow-r"
     data-iconpos="right" 
     data-theme="c" 
 	onclick="displaymaps('.$ids.')"
