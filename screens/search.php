@@ -20,7 +20,7 @@ window.location = urlString;
 <div data-role="page" id="page1">
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="d" data-inset="true">
-		           	
+From:
 <?php
 set_time_limit(300);
 $destination = $_POST["searchloc"];
@@ -43,7 +43,7 @@ WHERE destination =  '".$destination."'  ") or die(mysql_error());
 	$ids = $row['id'];
         $yea = $row['yea'];
         $nay = $row['nay'];
-        $format = "From: %s Yeas!: %s Nays!: %s";
+        $format = "%s Yeas!: %s Nays!: %s";
         $label_string = sprintf($format, $source, $yea, $nay);
     
 	   echo '<input
