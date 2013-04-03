@@ -33,7 +33,8 @@
          */
         ?>
         <title>Pathway mapper</title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
+<!--        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css"></link>
         <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
         <script src="handles.js" type ="text/javascript"></script>
         <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
@@ -126,8 +127,8 @@
                     data-theme="c"
                     disabled=""
                     value="Nay!" />
+                <h4><a href="homepage.html" data-role="button" data-icon="home" data-iconpos="left">Home</a></h4>
             </div>
-
 
             <div data-role="content" id="map_canvas" style="height:500px; width:500px">
             </div>
