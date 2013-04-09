@@ -15,7 +15,7 @@
             $(document).ready(function(){
                 $('#mybutton').click(function() {
 			
-                    $('#mybutton span span').html("Update");
+                    $('#mybutton span span').html("Upload");
                 });
 	 
 
@@ -29,7 +29,6 @@
                 <p style="margin-left:15px;">
                     Routing in progress
                 </p>
-                <div id="info">Detecting your location...</div>
                 <div data-role="controlgroup" data-type="horizontal">
                     <a id ="done_adding" href ="#" data-role="button" data-inline="true" style="margin-left:5px; width:100px;" >Done</a>
                     <a href="startadding.php" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
@@ -74,7 +73,7 @@
                         sourceText = "<?php echo $_POST["source"]; ?>";
 
                         done_button.onclick = function(){
-                            $('#done_adding span span').html("Update");
+                            $('#done_adding span span').html("Upload");
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
                             var marker = new google.maps.Marker({
