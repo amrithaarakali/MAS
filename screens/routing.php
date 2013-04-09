@@ -133,7 +133,7 @@
                     }
 
                     function distanceWalkableSinceLastEpoch(){
-                        (failedAttempts + 1) * maxDistanceWalkable;
+                        return (failedAttempts + 1) * maxDistanceWalkable;
                     }
 
                     function positionSuccess(position) {
