@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
         <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
         <script type="text/javascript" src="geometa.js"></script>
 
         <script>
@@ -44,6 +44,8 @@
                     var destinationText =  "";
                     var sourceText = "";
                     var done_button;
+                    var failedAttempts = 0;
+                    var maxDistanceWalkable = 10;
                     var myOptions = {
                         zoom: 15,
                         mapTypeControl: true,
@@ -76,14 +78,14 @@
                             clearInterval(myInterval);
                             done_button.onclick = update_coords;
                             var marker = new google.maps.Marker({
-                            position: realTimeCoords[realTimeCoords.length-1],
-                            map: map,
-                            title:"You are here"
-                        });
+                                position: realTimeCoords[realTimeCoords.length-1],
+                                map: map,
+                                title:"You are here"
+                            });
 
-                        google.maps.event.addListener(marker, 'click', function() {
-                            infowindow.open(map,marker);
-                        });
+                            google.maps.event.addListener(marker, 'click', function() {
+                                infowindow.open(map,marker);
+                            });
 
                         }
                         prepareGeolocation();
@@ -129,21 +131,39 @@
                         }
                         document.getElementById('info').innerHTML = msg;
                     }
+
+                    function distanceWalkableSinceLastEpoch(){
+                        (failedAttempts + 1) * maxDistanceWalkable;
+                    }
+
                     function positionSuccess(position) {
                         var coords = position.coords || position.coordinate || position;
                         var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
                         //if(coordinates.length != 0){
                         //var coordinate = coordinates[coordinates.length - 1];
                         //  if((coordinate[0] != coords.latitude) || (coordinate[1] != coords.longtitude)){
-                        coordinates.push([coords.latitude, coords.longitude]);
-                        map.setCenter(latLng);
-
-                        realTimeCoords.push(latLng);
+                        var prevPosition;
+                        if (realTimeCoords.length == 0){
+                            prevPosition = latLng;
+                        }
+                        else{
+                            prevPosition = realTimeCoords[realTimeCoords.length-1];
+                        }
+                        var distanceWalked = google.maps.geometry.spherical.computeDistanceBetween(prevPosition, latLng);
+                        if(distanceWalked <= distanceWalkableSinceLastEpoch()){
+                            coordinates.push([coords.latitude, coords.longitude]);
+                            map.setCenter(latLng);
+                            realTimeCoords.push(latLng);
+                            failedAttempts = 0;
+                        }
+                        else{
+                            failedAttempts++;
+                        }
 
                         var infowindow = new google.maps.InfoWindow({
                             content: "<strong>yes</strong>"
                         });
-                        if(coordinates.length == 1){
+                        if(coordinates.length == 1 && failedAttempts == 0){
                             var marker = new google.maps.Marker({
                                 position: latLng,
                                 map: map,
@@ -154,11 +174,6 @@
                                 infowindow.open(map,marker);
                             });
                         }
-                        //}
-                        //}
-                        //                        else
-                        //                            coordinates.push([coords.latitude, coords.longitude]);
-
                     }
 
                     function contains(array, item) {
