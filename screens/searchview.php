@@ -127,7 +127,7 @@
                     data-theme="c"
                     disabled=""
                     value="Nay!" />
-                <h4><a href="homepage.html" data-role="button" data-icon="home" data-iconpos="left">Home</a></h4>
+                <h4><a href="homepage.html" data-role="button" rel="external" data-icon="home" data-iconpos="left">Home</a></h4>
             </div>
 
             <div data-role="content" id="map_canvas" style="height:500px; width:500px">
