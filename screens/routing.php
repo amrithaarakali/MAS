@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Routing to destination</title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css"></link>
         <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
@@ -26,9 +26,13 @@
         <!-- Home -->
         <div data-role="page" id="page1">
             <div data-theme="c" data-role="header">
-                <p style="margin-left:15px;">
-                    Routing in progress
-                </p>
+                <div data-role="controlgroup" data-type="horizontal">
+                    <p>
+                        <a href="homepage.html" data-role="button" rel="external" data-icon="home" data-iconpos="left">Home</a>
+                        Routing in progress
+                    </p>
+
+                </div>
                 <div data-role="controlgroup" data-type="horizontal">
                     <a id ="done_adding" href ="#" data-role="button" data-inline="true" style="margin-left:5px; width:100px;" >Done</a>
                     <a href="startadding.php" rel="external" data-role="button" data-inline="true" style="margin-left:5px; width:100px;">Cancel</a>
